@@ -30,15 +30,74 @@ class Calculator {
     }
   }
 
-  initKeyboard = () => {}
+  initKeyboard = () => {
+    document.addEventListener('keydown', (e) => {
+      const key = e.key;
 
-  clear = () => {}
+      if (/[0-9+\-*/.%]/.test(key) || key === 'Enter' || key === 'Escape' || key === 'Backspace') {
+        e.preventDefault();
 
-  backspace = () => {}
+        if (key === 'Enter') {
+          this.calculate();
+        } else if (key === 'Escape') {
+          this.clear();
+        } else if (key === 'Backspace') {
+          this.backspace();
+        } else {
+          this.addToDisplay(key);
+        }
+      }
+    });
+  }
 
-  calculate = () => {}
+  clear = () => {
+    this.display.value = '';
+    this.operatorSelected = false;
+  }
 
-  addToDisplay = () => {}
+  backspace = () => {
+    this.display.value = this.display.value.slice(0, -1);
+    const lastChar = this.display.value[this.display.value.length - 1];
+    this.operatorSelected = /[+\-*/.]/.test(lastChar);
+  }
+
+  calculate() {
+    try {
+      const expression = this.display.value;
+
+      const sanitized = expression.replace(/[^0-9+\-*/.%]/g, '');
+
+      if (sanitized.includes('/0') && !sanitized.includes('/0.')) {
+        return Infinity;
+      }
+
+      const result = new Function(`return ${sanitized}`)();
+
+      if (result === Infinity || result === -Infinity) {
+        this.display.value = 'Error';
+      } else {
+        this.display.value = result;
+      }
+    } catch (error) {
+      this.display.value = 'Error';
+    }
+    this.operatorSelected = false;
+  }
+
+  addToDisplay = () => {
+    const currentValue = this.display.value;
+
+    if (/[+\-*/.]/.test(value)) {
+      if (this.lastInputWasOperator || currentValue === '') {
+        return;
+      }
+      this.lastInputWasOperator = true;
+    } else {
+      this.lastInputWasOperator = false;
+    }
+
+    this.display.value += value;
+  }
 }
 
 new Calculator();

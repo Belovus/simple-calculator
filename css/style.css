@@ -4,7 +4,6 @@ body {
     justify-content: center;
     height: 100vh;
     background: #d8e0ec;
-    margin: 0;
 }
 
 .calculator {
@@ -33,7 +32,6 @@ body {
     height: 80px;
     font-size: 2.5em;
 }
-
 .display:focus {
     outline: none;
 }
@@ -46,7 +44,6 @@ body {
     font-size: 1.5em;
     transition: all 0.3s;
 }
-
 .btn:hover {
     background: #f1f1f1;
 }
@@ -56,7 +53,6 @@ body {
     background: #2ecc71;
     color: white;
 }
-
 .calculate:hover {
     background: #27ae60;
 }
@@ -65,7 +61,6 @@ body {
     background: #f39c12;
     color: white;
 }
-
 .operator:hover {
     background: #e67e22;
 }
@@ -74,7 +69,6 @@ body {
     background: #e74c3c;
     color: white;
 }
-
-.clear:hover, .backspace:hover {
+.backspace:hover, .clear:hover {
     background: #c0392b;
 }
